@@ -1,4 +1,4 @@
 ---
-title: Home
+title: План защиты
 layout: home
 ---
