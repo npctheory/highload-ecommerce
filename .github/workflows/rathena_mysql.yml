@@ -1,4 +1,4 @@
-name: rathena_mysql
+name: Rathena MySQL
 
 on:
   push:
