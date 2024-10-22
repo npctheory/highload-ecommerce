@@ -1,0 +1,32 @@
+﻿@page "/"
+@page "/{categoryUrl}"
+@using Web.Components
+@inject ICategoryService CategoryService
+
+
+@if(_category != null){
+    <h1>@_category.Name</h1>
+    <ProductListViewModel CategoryId="@_category.Id" />
+}
+else{
+    <ProductListViewModel />
+}
+
+
+@code {
+    [Parameter]
+    public string CategoryUrl { get; set; }
+
+    private CategoryDTO _category;
+
+    protected override void OnParametersSet()
+    {
+        if(CategoryUrl != null)
+        {
+            _category = CategoryService.Categories.FirstOrDefault(c => c.Url.ToLower().Equals(CategoryUrl.ToLower()));
+        }
+        else{
+            _category = null;
+        }
+    }
+}

@@ -1,0 +1,41 @@
+@page "/product/{id}"
+@inject IProductService ProductService
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="/images/product.webp" alt="Product Image" />
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title mb-3">@product.Title</h2>
+                    <p class="card-text lead mb-4">@product.Description</p>
+                    @if(product.OriginalPrice > product.Price)
+                    {
+                        <h6 class="card-text text-muted text-decoration-line-through mb-2">₽@product.OriginalPrice</h6>
+                    }
+                    <h4 class="card-text mb-4">₽@product.Price</h4>
+                    <button class="btn btn-primary btn-lg">Добавить в корзину</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private ProductDTO product = null;
+    
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(ProductService.Products == null || ProductService.Products.Count == 0)
+        {
+            ProductService.LoadProducts();
+        }
+
+        product = ProductService.Products.FirstOrDefault(p => p.Id == Int32.Parse(Id));
+    }
+}
