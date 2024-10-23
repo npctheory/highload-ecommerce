@@ -92,7 +92,6 @@ touch src/Web/ServiceImplementations/CategoryServiceMockUp.cs
 
 
 
-
 dotnet add src/Authentication package Microsoft.AspNetCore.Authentication.JwtBearer
 dotnet add src/Authentication package Microsoft.Extensions.Options
 dotnet add src/Authentication package Microsoft.Extensions.Options.ConfigurationExtensions
@@ -121,6 +120,11 @@ dotnet add src/Orders package Microsoft.Extensions.Configuration
 dotnet add src/Orders package Microsoft.IdentityModel.Tokens
 dotnet add src/Orders package Npgsql
 dotnet add src/Orders package MassTransit.RabbitMQ
+```
 
+```bash
+touch src/Catalogs/Controllers/CategoryController.cs
+touch src/Web/ServiceImplementations/CategoryService.cs
 
+dotnet add src/Web package Microsoft.Extensions.Http
 ```

@@ -1,0 +1,6 @@
+@host=localhost:8080
+
+
+### Category
+GET http://localhost:8080/api/category
+Content-Type: application/json
