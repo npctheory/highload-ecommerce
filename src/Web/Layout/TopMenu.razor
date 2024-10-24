@@ -1,0 +1,35 @@
+@inject ILocalStorageService LocalStorage
+@inject ICartService CartService
+@implements IDisposable
+
+<a href="/cart" class="btn btn-info">Корзина (@productCount)</a>
+
+@code {
+    private int productCount = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("OnInitializedAsync started");
+        CartService.OnChange += StateHasChanged;
+        await UpdateProductCount();
+        Console.WriteLine("OnInitializedAsync completed");
+    }
+
+    public void Dispose()
+    {
+        Console.WriteLine("Dispose started");
+        CartService.OnChange -= StateHasChanged;
+        UpdateProductCount().GetAwaiter().OnCompleted(() => Console.WriteLine("UpdateProductCount completed"));
+        Console.WriteLine("Dispose completed");
+    }
+
+    private async Task UpdateProductCount()
+    {
+        Console.WriteLine("UpdateProductCount started");
+        var cart = await LocalStorage.GetItemAsync<List<ProductDTO>>("cart");
+        productCount = cart?.Count ?? 0;
+        Console.WriteLine($"Product count updated to {productCount}");
+        StateHasChanged();
+        Console.WriteLine("UpdateProductCount completed");
+    }
+}

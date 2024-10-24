@@ -6,6 +6,6 @@ public interface IProductService
 {
     List<ProductDTO> Products {get; set;}
 
-    void LoadProducts();
+    public Task LoadProductsAsync();
 
 }

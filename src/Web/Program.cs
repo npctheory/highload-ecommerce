@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -5,6 +6,8 @@ using System.Net.Http;
 using Web;
 using Web.ServiceImplementations;
 using Web.Services;
+using Blazored.LocalStorage;
+using Blazored.Toast;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -23,7 +26,9 @@ else
     builder.Services.AddHttpClient("OrderService", client => client.BaseAddress = new Uri("http://orders:80"));
 }
 
-builder.Services.AddScoped<IProductService, ProductServiceMockUp>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddBlazoredToast();
 await builder.Build().RunAsync();

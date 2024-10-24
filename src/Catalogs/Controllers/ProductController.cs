@@ -1,15 +1,40 @@
+using Microsoft.AspNetCore.Mvc;
 using Shared.DTO.Catalogs;
-using Web.Services;
 
-namespace Web.ServiceImplementations;
+namespace Catalogs.Controllers;
 
-public class ProductServiceMockUp
+[ApiController]
+public class ProductController : ControllerBase
 {
-    public List<ProductDTO> Products { get; set; } = new List<ProductDTO>();
-
-    public void LoadProducts()
+    [HttpGet("/GetProducts")]
+    public async Task<ActionResult<List<ProductDTO>>> GetProducts()
     {
-        Products = new List<ProductDTO>
+        return Ok(Products);
+    }
+
+    [HttpGet("/GetProductsByCategory/{categoryUrl}")]
+    public async Task<ActionResult<List<ProductDTO>>> GetProductsByCategory(string categoryUrl)
+    {
+        var products = Products.Where(p => p.Category.Url.ToLower() == categoryUrl.ToLower()).ToList();
+        if (products.Count == 0)
+        {
+            return NotFound($"No products found in category: {categoryUrl}");
+        }
+        return Ok(products);
+    }
+
+    [HttpGet("GetProduct/{id}")]
+    public async Task<ActionResult<ProductDTO>> GetProduct(int id)
+    {
+        var product = Products.FirstOrDefault(p => p.Id == id);
+        if (product == null)
+        {
+            return NotFound($"Product with id {id} not found");
+        }
+        return Ok(product);
+    }
+
+    private static List<ProductDTO> Products {get; set;} = new List<ProductDTO>
         {
             new ProductDTO
             {
@@ -19,7 +44,7 @@ public class ProductServiceMockUp
                 Price = 499.00m,
                 OriginalPrice = 864.50m,
                 Image = "/images/product.webp",
-                Category = new CategoryDTO { Id = 1, Name = "Головные уборы" },
+                Category = new CategoryDTO { Id = 1, Name = "Скидки", Url = "discounts", Icon = "icon2" },
                 IsPublic = true,
                 IsDeleted = false,
                 CategoryId = 1,
@@ -34,7 +59,7 @@ public class ProductServiceMockUp
                 Price = 399.00m,
                 OriginalPrice = 664.50m,
                 Image = "/images/product.webp",
-                Category = new CategoryDTO { Id = 1, Name = "Головные уборы" },
+                Category = new CategoryDTO { Id = 1, Name = "Скидки", Url = "discounts", Icon = "icon2" },
                 IsPublic = true,
                 IsDeleted = false,
                 CategoryId = 1,
@@ -49,7 +74,7 @@ public class ProductServiceMockUp
                 Price = 790.00m,
                 OriginalPrice = 790.00m,
                 Image = "/images/product.webp",
-                Category = new CategoryDTO { Id = 1, Name = "Головные уборы" },
+                Category = new CategoryDTO { Id = 2, Name = "Спец Предложения", Url = "special_offers", Icon = "icon3" },
                 IsPublic = true,
                 IsDeleted = false,
                 CategoryId = 2,
@@ -64,7 +89,7 @@ public class ProductServiceMockUp
                 Price = 399.00m,
                 OriginalPrice = 724.50m,
                 Image = "/images/product.webp",
-                Category = new CategoryDTO { Id = 1, Name = "Головные уборы" },
+                Category = new CategoryDTO { Id = 2, Name = "Спец Предложения", Url = "special_offers", Icon = "icon3" },
                 IsPublic = true,
                 IsDeleted = false,
                 CategoryId = 2,
@@ -79,7 +104,7 @@ public class ProductServiceMockUp
                 Price = 399.00m,
                 OriginalPrice = 664.50m,
                 Image = "/images/product.webp",
-                Category = new CategoryDTO { Id = 1, Name = "Головные уборы" },
+                Category = new CategoryDTO { Id = 2, Name = "Спец Предложения", Url = "special_offers", Icon = "icon3" },
                 IsPublic = true,
                 IsDeleted = false,
                 CategoryId = 2,
@@ -94,7 +119,7 @@ public class ProductServiceMockUp
                 Price = 449.00m,
                 OriginalPrice = 764.50m,
                 Image = "/images/product.webp",
-                Category = new CategoryDTO { Id = 1, Name = "Головные уборы" },
+                Category = new CategoryDTO { Id = 3, Name = "Премиум", Url = "premium", Icon = "icon4" },
                 IsPublic = true,
                 IsDeleted = false,
                 CategoryId = 3,
@@ -109,7 +134,7 @@ public class ProductServiceMockUp
                 Price = 1550.00m,
                 OriginalPrice = 1847.00m,
                 Image = "/images/product.webp",
-                Category = new CategoryDTO { Id = 2, Name = "Наборы" },
+                Category = new CategoryDTO { Id = 3, Name = "Премиум", Url = "premium", Icon = "icon4" },
                 IsPublic = true,
                 IsDeleted = false,
                 CategoryId = 3,
@@ -124,7 +149,7 @@ public class ProductServiceMockUp
                 Price = 801.00m,
                 OriginalPrice = 1050.00m,
                 Image = "/images/product.webp",
-                Category = new CategoryDTO { Id = 2, Name = "Наборы" },
+                Category = new CategoryDTO { Id = 3, Name = "Премиум", Url = "premium", Icon = "icon4" },
                 IsPublic = true,
                 IsDeleted = false,
                 CategoryId = 3,
@@ -139,7 +164,7 @@ public class ProductServiceMockUp
                 Price = 799.00m,
                 OriginalPrice = 1173.50m,
                 Image = "/images/product.webp",
-                Category = new CategoryDTO { Id = 2, Name = "Наборы" },
+                Category = new CategoryDTO { Id = 3, Name = "Премиум", Url = "premium", Icon = "icon4" },
                 IsPublic = true,
                 IsDeleted = false,
                 CategoryId = 3,
@@ -147,5 +172,4 @@ public class ProductServiceMockUp
                 DateUpdated = DateTime.UtcNow.AddDays(-16)
             }
         };
-    }
 }

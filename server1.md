@@ -124,7 +124,23 @@ dotnet add src/Orders package MassTransit.RabbitMQ
 
 ```bash
 touch src/Catalogs/Controllers/CategoryController.cs
+touch src/Catalogs/Controllers/ProductController.cs
 touch src/Web/ServiceImplementations/CategoryService.cs
+touch src/Web/ServiceImplementations/ProductService.cs
 
 dotnet add src/Web package Microsoft.Extensions.Http
+dotnet add src/Web package Blazored.LocalStorage
+dotnet add src/web package Blazored.Toast
+
+touch src/Web/Layout/TopMenu.razor
+touch src/Web/Services/ICartService.cs
+touch src/Web/ServiceImplementations/CartService.cs
+touch src/Web/Pages/Cart.razor
+touch src/Web/Components/CartItem.cs
+
+dotnet add src/Web package Microsoft.AspNetCore.Components.Authorization
+touch src/Web/Pages/Login.razor
+touch src/Web/Pages/Register.razor
+touch src/Web/Pages/Logout.razor
+touch src/Web/CustomAuthStateProvider.cs
 ```
