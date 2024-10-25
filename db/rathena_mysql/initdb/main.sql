@@ -1141,3 +1141,54 @@ CREATE TABLE IF NOT EXISTS `vendings` (
   `autotrade` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
+
+
+INSERT INTO `login` (
+  `account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`, `state`, 
+  `unban_time`, `expiration_time`, `logincount`, `lastlogin`, `last_ip`, 
+  `birthdate`, `character_slots`, `pincode`, `pincode_change`, `vip_time`, 
+  `old_group`, `web_auth_token`, `web_auth_token_enabled`
+) VALUES (
+  2000000, 'admin', 'password', 'M', 'user@example.com', 0, 0, 
+  0, 0, 2, '2024-10-26 00:01:15', '127.0.0.1', 
+  NULL, 0, '1234', 1729890149, 0, 
+  0, 'd24f7576aee36b75', 1
+);
+
+INSERT INTO `login` (
+  `account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`, `state`, 
+  `unban_time`, `expiration_time`, `logincount`, `lastlogin`, `last_ip`, 
+  `birthdate`, `character_slots`, `pincode`, `pincode_change`, `vip_time`, 
+  `old_group`, `web_auth_token`, `web_auth_token_enabled`
+) VALUES (
+  2000001, 'user', 'password', 'M', 'user@example.com', 0, 0, 
+  0, 0, 2, '2024-10-26 00:01:15', '127.0.0.1', 
+  NULL, 0, '1234', 1729890149, 0, 
+  0, 'e35f8576bfe47c86', 1
+);
+
+INSERT INTO `char` (
+  `char_id`, `account_id`, `char_num`, `name`, `class`, `base_level`, `job_level`,
+  `base_exp`, `job_exp`, `zeny`, `str`, `agi`, `vit`, `int`, `dex`, `luk`,
+  `pow`, `sta`, `wis`, `spl`, `con`, `crt`, `max_hp`, `hp`, `max_sp`, `sp`,
+  `max_ap`, `ap`, `status_point`, `skill_point`, `trait_point`, `option`, `karma`,
+  `manner`, `party_id`, `guild_id`, `pet_id`, `homun_id`, `elemental_id`, `hair`,
+  `hair_color`, `clothes_color`, `body`, `weapon`, `shield`, `head_top`, `head_mid`,
+  `head_bottom`, `robe`, `last_map`, `last_x`, `last_y`, `last_instanceid`,
+  `save_map`, `save_x`, `save_y`, `partner_id`, `online`, `father`, `mother`,
+  `child`, `fame`, `rename`, `delete_date`, `moves`, `unban_time`, `font`,
+  `uniqueitem_counter`, `sex`, `hotkey_rowshift`, `hotkey_rowshift2`, `clan_id`,
+  `last_login`, `title_id`, `show_equip`, `inventory_slots`, `body_direction`, `disable_call`
+) VALUES (
+  150000, 2000001, 0, 'Character1', 0, 1, 1,
+  0, 0, 0, 1, 1, 1, 1, 1, 1,
+  0, 0, 0, 0, 0, 0, 40, 40, 11, 11,
+  0, 0, 48, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 1,
+  0, 0, 0, 1, 0, 0, 0,
+  0, 0, 'izlude_a', 128, 139, 0,
+  'izlude_a', 129, 142, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0,
+  0, 'M', 0, 0, 0,
+  '2024-10-25 21:18:03', 0, 0, 100, 4, 0
+);
