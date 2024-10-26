@@ -144,3 +144,32 @@ touch src/Web/Pages/Register.razor
 touch src/Web/Pages/Logout.razor
 touch src/Web/CustomAuthStateProvider.cs
 ```
+
+Authentication
+```bash
+touch src/Authentication/Entities/LoginEntity.cs
+touch src/Authentication/Entities/CharEntity.cs
+touch src/Authentication/RepositoryInterfaces/ILoginEntityRepository.cs
+touch src/Authentication/RepositoryInterfaces/ICharEntityRepository.cs
+touch src/Authentication/RepositoryImplementations/LoginEntityRepositoryMySql.cs
+touch src/Authentication/RepositoryImplementations/CharEntityRepositoryMySql.cs
+dotnet add src/Authentication package MySql.Data
+dotnet add src/Authentication package Dapper
+touch src/Authentication/Controllers/LoginController.cs
+touch src/Authentication/Controllers/CharController.cs
+
+dotnet add src/Authentication package MediatR
+dotnet add src/Authentication package AutoMapper
+
+touch src/Shared/DTO/Authentication/LoginDTO.cs
+touch src/Shared/DTO/Authentication/TokenDTO.cs
+
+mkdir -p src/Authentication/Queries/SignIn
+touch src/Authentication/Queries/SignIn/SignInQuery.cs
+mkdir -p src/Authentication/Queries/GetLogin
+touch src/Authentication/Queries/GetLogin/GetLoginQuery.cs
+touch src/Authentication/Queries/GetLogin/GetLoginQueryHandler.cs
+touch src/Authentication/Configuration/AuthenticationProfile.cs
+dotnet add src/Authentication package Microsoft.AspNetCore.Authentication
+dotnet add src/Authentication package Microsoft.AspNetCore.Authentication.JwtBearer
+```

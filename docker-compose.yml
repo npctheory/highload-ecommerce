@@ -28,7 +28,7 @@ services:
       PMA_PASSWORD: userpassword
       PMA_PORT: 3306
     ports:
-      - "8080:80"
+      - "8090:80"
     depends_on:
       - rathena_mysql
     networks:
