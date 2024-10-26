@@ -1,5 +1,5 @@
 using Authentication.Entities;
-using Authentication.RepositoryInterfaces;
+using Authentication.Interfaces.Repositories;
 using AutoMapper;
 using MediatR;
 using Shared.DTO.Authentication;

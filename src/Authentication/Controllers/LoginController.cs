@@ -28,16 +28,16 @@ namespace Authentication.Controllers;
         }
 
 
-/*         [AllowAnonymous]
+        [AllowAnonymous]
         [HttpPost("signin")]
         public async Task<IActionResult> SignIn([FromBody] JsonElement jsonElement)
         {
             string id = jsonElement.GetProperty("id").GetString();
             string password = jsonElement.GetProperty("password").GetString();
 
-            TokenDTO token = await _mediator.Send(new SignInQuery(id,password)); 
+            JwtTokenDTO token = await _mediator.Send(new SignInQuery(int.Parse(id),password)); 
             return Ok(token);
-        } */
+        }
 
         /* 
         [AllowAnonymous]

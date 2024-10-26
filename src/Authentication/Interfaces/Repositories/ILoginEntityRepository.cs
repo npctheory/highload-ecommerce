@@ -1,6 +1,6 @@
 using Authentication.Entities;
 
-namespace Authentication.RepositoryInterfaces;
+namespace Authentication.Interfaces.Repositories;
 
 public interface ILoginEntityRepository
 {

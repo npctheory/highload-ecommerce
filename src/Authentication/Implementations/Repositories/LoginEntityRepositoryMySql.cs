@@ -1,7 +1,7 @@
-namespace Authentication.RepositoryImplementations;
+namespace Authentication.Implementations.Repositories;
 
 using Authentication.Entities;
-using Authentication.RepositoryInterfaces;
+using Authentication.Interfaces.Repositories;
 using MySql.Data.MySqlClient;
 using Dapper;
 

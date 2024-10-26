@@ -1,5 +1,7 @@
-@host=localhost:8082
+@host=localhost:8080
 
 
 ### GetById
-GET http://localhost:8082/getlogin/2000000
+GET http://{{host}}/api/auth/getlogin/2000000
+
+

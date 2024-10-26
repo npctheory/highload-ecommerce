@@ -2,9 +2,9 @@
 
 
 ### Category
-GET http://localhost:8080/api/category
+GET http://{{host}}/api/catalogs/api/category
 Content-Type: application/json
 
 ### Product
-GET http://localhost:8080/api/product
+GET http://{{host}}/api/catalogs/api/product
 Content-Type: application/json

@@ -1,4 +1,44 @@
 services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - highload_net
+
+  catalogs:
+    build:
+      context: ./src
+      dockerfile: ./Catalogs/Dockerfile
+    container_name: catalogs
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: "http://*:80"
+    networks:
+      - highload_net
+    ports:
+      - "8082:80"
+
+  authentication:
+    build:
+      context: ./src
+      dockerfile: ./Authentication/Dockerfile
+    container_name: authentication
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: "http://*:80"
+    networks:
+      - highload_net
+    ports:
+      - "8084:80"
+
+
   rathena_mysql:
     # image: towk/rathena_mysql:latest
     build:
@@ -18,21 +58,22 @@ services:
     networks:
       - highload_net
 
-  phpmyadmin:
-    image: phpmyadmin:latest
-    container_name: phpmyadmin
-    restart: unless-stopped
-    environment:
-      PMA_HOST: rathena_mysql
-      PMA_USER: user
-      PMA_PASSWORD: userpassword
-      PMA_PORT: 3306
-    ports:
-      - "8090:80"
-    depends_on:
-      - rathena_mysql
-    networks:
-      - highload_net
+  # phpmyadmin:
+    # image: phpmyadmin:latest
+    # container_name: phpmyadmin
+    # restart: unless-stopped
+    # environment:
+      # PMA_HOST: rathena_mysql
+      # PMA_USER: user
+      # PMA_PASSWORD: userpassword
+      # PMA_PORT: 3306
+    # ports:
+      # - "8090:80"
+    # depends_on:
+      # - rathena_mysql
+    # networks:
+      # - highload_net
+
 
 volumes:
   mysql_data:

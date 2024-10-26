@@ -171,5 +171,22 @@ touch src/Authentication/Queries/GetLogin/GetLoginQuery.cs
 touch src/Authentication/Queries/GetLogin/GetLoginQueryHandler.cs
 touch src/Authentication/Configuration/AuthenticationProfile.cs
 dotnet add src/Authentication package Microsoft.AspNetCore.Authentication
+```
+
+jwt
+```bash
 dotnet add src/Authentication package Microsoft.AspNetCore.Authentication.JwtBearer
+mkdir -p src/Authentication/Interfaces
+mkdir -p src/Authentication/Interfaces/Services
+mkdir -p src/Authentication/Implementations
+mkdir -p src/Authentication/Implementations/Services
+
+
+touch src/Shared/DTO/Authentication/JwtTokenDTO.cs
+
+touch src/Authentication/Interfaces/Services/IJwtTokenGenerator.cs
+touch src/Authentication/Implementations/Services/JwtTokenGenerator.cs
+touch src/Authentication/Queries/SignIn/SignInQuery.cs
+touch src/Authentication/Queries/SignIn/SignInQueryHandler.cs
+touch src/Authentication/Configuration/JwtSettings.cs
 ```
