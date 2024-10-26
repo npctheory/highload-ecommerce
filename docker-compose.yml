@@ -37,6 +37,20 @@ services:
       - highload_net
     ports:
       - "8084:80"
+      
+  web:
+    build:
+      context: ./src
+      dockerfile: ./Web/Dockerfile
+    container_name: web
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: "http://*:80"
+    networks:
+      - highload_net
+    ports:
+      - "80:80"
 
 
   rathena_mysql:
