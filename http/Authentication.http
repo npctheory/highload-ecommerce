@@ -2,6 +2,6 @@
 
 
 ### GetById
-GET http://{{host}}/api/auth/getlogin/2000000
+GET http://{{host}}/api/auth/login/2000000
 
 

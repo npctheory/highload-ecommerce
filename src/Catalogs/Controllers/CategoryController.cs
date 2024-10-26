@@ -1,13 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DTO.Catalogs;
 
 namespace Catalogs.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
 public class CategoryController : ControllerBase
 {
-    [HttpGet]
+    [AllowAnonymous]
+    [HttpGet("categories")]
     public async Task<ActionResult<List<CategoryDTO>>> GetCategories()
     {
         return Ok(new List<CategoryDTO>

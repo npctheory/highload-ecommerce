@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DTO.Catalogs;
 
@@ -6,13 +7,15 @@ namespace Catalogs.Controllers;
 [ApiController]
 public class ProductController : ControllerBase
 {
-    [HttpGet("/GetProducts")]
+    [AllowAnonymous]
+    [HttpGet("products")]
     public async Task<ActionResult<List<ProductDTO>>> GetProducts()
     {
         return Ok(Products);
     }
 
-    [HttpGet("/GetProductsByCategory/{categoryUrl}")]
+    [AllowAnonymous]
+    [HttpGet("products/category/{categoryUrl}")]
     public async Task<ActionResult<List<ProductDTO>>> GetProductsByCategory(string categoryUrl)
     {
         var products = Products.Where(p => p.Category.Url.ToLower() == categoryUrl.ToLower()).ToList();
@@ -23,7 +26,8 @@ public class ProductController : ControllerBase
         return Ok(products);
     }
 
-    [HttpGet("GetProduct/{id}")]
+    [AllowAnonymous]
+    [HttpGet("products/{id}")]
     public async Task<ActionResult<ProductDTO>> GetProduct(int id)
     {
         var product = Products.FirstOrDefault(p => p.Id == id);

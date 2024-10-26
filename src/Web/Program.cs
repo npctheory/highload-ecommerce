@@ -15,15 +15,13 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 if (builder.HostEnvironment.IsDevelopment())
 {
-    builder.Services.AddHttpClient("CatalogsService", client => client.BaseAddress = new Uri("http://localhost:8080"));
-    builder.Services.AddHttpClient("AuthenticationService", client => client.BaseAddress = new Uri("http://localhost:8082"));
-    builder.Services.AddHttpClient("OrderService", client => client.BaseAddress = new Uri("http://localhost:8084"));
+    builder.Services.AddHttpClient("CatalogsService", client => client.BaseAddress = new Uri("http://localhost:8082"));
+    builder.Services.AddHttpClient("AuthenticationService", client => client.BaseAddress = new Uri("http://localhost:8084"));
+    builder.Services.AddHttpClient("OrderService", client => client.BaseAddress = new Uri("http://localhost:8086"));
 }
 else
 {
-    builder.Services.AddHttpClient("CatalogsService", client => client.BaseAddress = new Uri("http://catalogs:80"));
-    builder.Services.AddHttpClient("AuthenticationService", client => client.BaseAddress = new Uri("http://authentication:80"));
-    builder.Services.AddHttpClient("OrderService", client => client.BaseAddress = new Uri("http://orders:80"));
+    builder.Services.AddHttpClient("ApiClient", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress + "api/"));
 }
 
 builder.Services.AddScoped<IProductService, ProductService>();

@@ -8,6 +8,7 @@ using Shared.DTO.Authentication;
 
 namespace Authentication.Controllers;
 
+    [ApiController]
     public class LoginController : ControllerBase
     {
         private readonly ISender _mediator;
@@ -20,7 +21,7 @@ namespace Authentication.Controllers;
         }
 
         [AllowAnonymous]
-        [HttpGet("getlogin/{accountId}")]
+        [HttpGet("login/{accountId}")]
         public async Task<IActionResult> GetLogin([FromRoute] int accountId)
         {
             LoginDTO login = await _mediator.Send(new GetLoginQuery(accountId));
