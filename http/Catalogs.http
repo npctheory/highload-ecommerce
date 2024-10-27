@@ -1,11 +1,13 @@
-@host1=localhost:80/api/catalogs
-@host2=localhost:8082
+@hostDocker=localhost:80/api/catalogs
+@hostVSC=localhost:8082
 
 
 ### Category
-GET http://{{host2}}/categories
+GET http://{{hostDocker}}/categories
 Content-Type: application/json
 
+### while true; do curl -s -o /dev/null -D - http://localhost:80/api/catalogs/categories | grep "X-Catalogs-Instance"; sleep 1; done
+
 ### Product
-GET http://{{host2}}/products
+GET http://{{hostDocker}}/products
 Content-Type: application/json
