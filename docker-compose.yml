@@ -61,21 +61,21 @@ services:
     networks:
       - highload_net
 
-  # phpmyadmin:
-    # image: phpmyadmin:latest
-    # container_name: phpmyadmin
-    # restart: unless-stopped
-    # environment:
-      # PMA_HOST: rathena_mysql
-      # PMA_USER: user
-      # PMA_PASSWORD: userpassword
-      # PMA_PORT: 3306
-    # ports:
-      # - "8090:80"
-    # depends_on:
-      # - rathena_mysql
-    # networks:
-      # - highload_net
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: rathena_mysql
+      PMA_USER: user
+      PMA_PASSWORD: userpassword
+      PMA_PORT: 3306
+    ports:
+      - "8090:80"
+    depends_on:
+      - rathena_mysql
+    networks:
+      - highload_net
 
 
 volumes:

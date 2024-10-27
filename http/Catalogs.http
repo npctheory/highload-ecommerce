@@ -1,10 +1,11 @@
-@host=localhost:80
+@host1=localhost:80/api/catalogs
+@host2=localhost:8082
 
 
 ### Category
-GET http://{{host}}/api/catalogs/categories
+GET http://{{host2}}/categories
 Content-Type: application/json
 
 ### Product
-GET http://{{host}}/api/catalogs/products
+GET http://{{host2}}/products
 Content-Type: application/json

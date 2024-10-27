@@ -1,7 +1,15 @@
-@host=localhost:80
+@host1=localhost:80/api/auth
+@host2=localhost:8084
 
 
 ### GetById
-GET http://{{host}}/api/auth/login/2000000
+GET http://{{host2}}/login/2000000
 
+### SignIn
+POST http://{{host2}}/signin/
+Content-Type: application/json
 
+{
+  "id": "2000001",
+  "password": "password"
+}

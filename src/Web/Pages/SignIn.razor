@@ -1,0 +1,30 @@
+@page "/signin"
+@using Web.Models
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h3>Войти в систему</h3>
+
+<EditForm Model="@user" OnValidSubmit="@HandleSignIn" class="mb-3">
+    <div class="mb-3">
+        <label for="id" class="form-label">Идентификатор</label>  
+        <InputText id="id" @bind-Value="user.Id" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Пароль</label>
+        <InputText id="password" @bind-Value="user.Password" class="form-control" type="password" />
+    </div>
+    <button type="submit" class="btn btn-primary">Войти</button>
+</EditForm>
+@code {
+    private User user = new User();
+
+    private async void HandleSignIn()
+    {
+        Console.WriteLine("Login clicked");
+        await LocalStorage.SetItemAsync("id", user.Id);
+        await ((CustomAuthStateProvider)AuthenticationStateProvider).GetAuthenticationStateAsync();
+        Navigation.NavigateTo("/");
+    }
+}

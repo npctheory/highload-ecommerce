@@ -2,6 +2,8 @@
 @page "/{categoryUrl}"
 @using Web.Components
 @inject ICategoryService CategoryService
+@inject IProductService ProductService
+@inject ILocalStorageService LocalStorage
 
 
 @if(_category != null){
@@ -9,7 +11,14 @@
     <ProductListViewModel CategoryId="@_category.Id" />
 }
 else{
-    <ProductListViewModel />
+    <AuthorizeView>
+        <Authorized>
+            <h3>Вы вошли в систему.</h3>
+        </Authorized>
+        <NotAuthorized>
+            <h3>Добро пожаловать!</h3>
+        </NotAuthorized>
+    </AuthorizeView>
 }
 
 

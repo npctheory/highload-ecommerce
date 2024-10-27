@@ -11,12 +11,12 @@ public class ProductService : IProductService
 
     public ProductService(IHttpClientFactory httpClientFactory)
     {
-        _httpClient = httpClientFactory.CreateClient("ApiClient");
+        _httpClient = httpClientFactory.CreateClient("Catalogs");
     }
 
     public async Task LoadProductsAsync()
     {
         // Update the API endpoint to match your controller's route for getting all products
-        Products = await _httpClient.GetFromJsonAsync<List<ProductDTO>>("catalogs/products");
+        Products = await _httpClient.GetFromJsonAsync<List<ProductDTO>>("products");
     }
 }

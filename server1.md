@@ -189,4 +189,11 @@ touch src/Authentication/Implementations/Services/JwtTokenGenerator.cs
 touch src/Authentication/Queries/SignIn/SignInQuery.cs
 touch src/Authentication/Queries/SignIn/SignInQueryHandler.cs
 touch src/Authentication/Configuration/JwtSettings.cs
+
+mkdir -p src/Web/Models
+touch src/Web/Models/User.cs
+touch src/Web/Pages/SignIn.razor
+dotnet add src/Web package Microsoft.AspNetCore.Components.Authorization
+
+touch src/Web/CustomAuthStateProvider.cs
 ```

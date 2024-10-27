@@ -1,4 +1,6 @@
 ﻿@inject ICategoryService CategoryService
+@inject ILocalStorageService LocalStorage
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -22,6 +24,17 @@
                 <NavLink class="nav-link" href="@category.Url">@category.Name</NavLink>
             </div>
         }
+        <div class="dropdown-divider"></div>
+        <div class="nav-item px-3">
+            <AuthorizeView>
+                <Authorized>
+                    <NavLink class="nav-link" href="#" @onclick="signout">Выйти из системы</NavLink>
+                </Authorized>
+                <NotAuthorized>
+                    <NavLink class="nav-link" href="signin">Войти в систему</NavLink>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
     </nav>
 </div>
 
@@ -38,5 +51,11 @@
     protected override async Task OnInitializedAsync()
     {
         await CategoryService.LoadCategoriesAsync();
+    }
+
+    private async void signout()
+    {
+        await LocalStorage.RemoveItemAsync("id");
+        await ((CustomAuthStateProvider)AuthenticationStateProvider).GetAuthenticationStateAsync();
     }
 }

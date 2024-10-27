@@ -13,11 +13,11 @@ public class CategoryService : ICategoryService
 
     public CategoryService(IHttpClientFactory httpClientFactory)
     {
-        _httpClient = httpClientFactory.CreateClient("ApiClient");
+        _httpClient = httpClientFactory.CreateClient("Catalogs");
     }
 
     public async Task LoadCategoriesAsync()
     {
-        Categories = await _httpClient.GetFromJsonAsync<List<CategoryDTO>>("catalogs/categories");
+        Categories = await _httpClient.GetFromJsonAsync<List<CategoryDTO>>("categories");
     }
 }
