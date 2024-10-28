@@ -1,12 +1,12 @@
-@host1=localhost:80/api/auth
-@host2=localhost:8084
+@hostDocker=localhost:80/api/catalogs
+@hostVSC=localhost:8084
 
 
 ### GetById
-GET http://{{host2}}/login/2000000
+GET http://{{hostVSC}}/login/2000000
 
 ### SignIn
-POST http://{{host2}}/signin/
+POST http://{{hostVSC}}/signin/
 Content-Type: application/json
 
 {

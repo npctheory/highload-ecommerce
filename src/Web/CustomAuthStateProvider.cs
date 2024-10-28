@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -7,6 +8,7 @@ namespace Web;
 public class CustomAuthStateProvider : AuthenticationStateProvider
 {
     private readonly ILocalStorageService _localStorage;
+    private readonly JwtSecurityTokenHandler _tokenHandler = new JwtSecurityTokenHandler();
 
     public CustomAuthStateProvider(ILocalStorageService localStorage)
     {
@@ -15,16 +17,24 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        var state = new AuthenticationState(new ClaimsPrincipal());
-
-        var id = await _localStorage.GetItemAsync<string>("id");
-        if (!string.IsNullOrEmpty(id))
+        try
         {
-            var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, id) }, "jwt");
-            state = new AuthenticationState(new ClaimsPrincipal(identity));
-        }
+            var token = await _localStorage.GetItemAsync<string>("authToken");
+            if (string.IsNullOrEmpty(token))
+            {
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+            }
 
-        NotifyAuthenticationStateChanged(Task.FromResult(state));
-        return state;
+            var jwtToken = _tokenHandler.ReadJwtToken(token);
+            var claims = jwtToken.Claims.ToList();
+            var identity = new ClaimsIdentity(claims, "jwt");
+            var user = new ClaimsPrincipal(identity);
+            
+            return new AuthenticationState(user);
+        }
+        catch
+        {
+            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+        }
     }
 }

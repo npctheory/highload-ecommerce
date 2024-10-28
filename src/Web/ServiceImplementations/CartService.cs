@@ -1,6 +1,7 @@
 using Blazored.LocalStorage;
 using Blazored.Toast.Services;
 using Shared.DTO.Catalogs;
+using Shared.DTO.Orders;
 using Web.Components;
 using Web.Services;
 

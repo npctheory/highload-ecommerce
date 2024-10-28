@@ -20,6 +20,16 @@ builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSet
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowWebApp", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -48,6 +58,7 @@ builder.Services.AddScoped<ILoginEntityRepository>(provider =>
 builder.Services.AddSingleton<IJwtTokenGenerator,JwtTokenGenerator>();
 
 var app = builder.Build();
+app.UseCors("AllowWebApp");
 
 if (app.Environment.IsDevelopment())
 {

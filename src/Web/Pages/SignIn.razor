@@ -1,8 +1,10 @@
 @page "/signin"
+@using Shared.DTO.Authentication
 @using Web.Models
 @inject ILocalStorageService LocalStorage
 @inject NavigationManager Navigation
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IHttpClientFactory ClientFactory
 
 <h3>Войти в систему</h3>
 
@@ -22,9 +24,30 @@
 
     private async void HandleSignIn()
     {
-        Console.WriteLine("Login clicked");
-        await LocalStorage.SetItemAsync("id", user.Id);
-        await ((CustomAuthStateProvider)AuthenticationStateProvider).GetAuthenticationStateAsync();
-        Navigation.NavigateTo("/");
+        var client = ClientFactory.CreateClient("AuthenticationService");
+        try
+        {
+            var response = await client.PostAsJsonAsync(
+                "signin",
+                new { id = user.Id, password = user.Password });
+                
+            if (response.IsSuccessStatusCode)
+            {
+                var token = await response.Content.ReadFromJsonAsync<JwtTokenDTO>();
+                await LocalStorage.SetItemAsync("authToken", token.token);
+                await LocalStorage.SetItemAsync("id", user.Id);
+                await ((CustomAuthStateProvider)AuthenticationStateProvider).GetAuthenticationStateAsync();
+                Navigation.NavigateTo("/");
+            }
+            else
+            {
+                // Handle login failure
+                Console.WriteLine("Login failed");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Login error: {ex.Message}");
+        }
     }
 }

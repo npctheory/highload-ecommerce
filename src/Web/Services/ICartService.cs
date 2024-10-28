@@ -1,4 +1,5 @@
 using Shared.DTO.Catalogs;
+using Shared.DTO.Orders;
 using Web.Components;
 
 namespace Web.Services;

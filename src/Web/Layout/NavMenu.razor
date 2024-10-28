@@ -55,6 +55,7 @@
 
     private async void signout()
     {
+        await LocalStorage.RemoveItemAsync("authToken");
         await LocalStorage.RemoveItemAsync("id");
         await ((CustomAuthStateProvider)AuthenticationStateProvider).GetAuthenticationStateAsync();
     }

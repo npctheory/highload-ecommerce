@@ -1,5 +1,6 @@
 services:
   catalogs:
+    image: catalogs:local
     build:
       context: ./src
       dockerfile: ./Catalogs/Dockerfile
@@ -8,6 +9,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: "http://*:80"
+      INSTANCE_ID: 1
     networks:
       - highload_net
     ports:
@@ -74,6 +76,18 @@ services:
       - "8090:80"
     depends_on:
       - rathena_mysql
+    networks:
+      - highload_net
+
+  haproxy:
+    image: haproxy:latest
+    container_name: haproxy
+    restart: unless-stopped
+    ports:
+      - "35432:5432"
+      - "35433:5433"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     networks:
       - highload_net
 

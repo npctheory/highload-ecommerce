@@ -1,4 +1,4 @@
-namespace Web.Components;
+namespace Shared.DTO.Orders;
 
 public class CartItem
 {

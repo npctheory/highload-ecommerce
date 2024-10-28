@@ -197,3 +197,46 @@ dotnet add src/Web package Microsoft.AspNetCore.Components.Authorization
 
 touch src/Web/CustomAuthStateProvider.cs
 ```
+
+```bash
+mkdir -p src/Catalogs/Entities
+touch src/Catalogs/Entities/CategoryEntity.cs
+touch src/Catalogs/Entities/ProductEntity.cs
+mkdir -p src/Catalogs/Interfaces
+mkdir -p src/Catalogs/Interfaces/Repositories
+mkdir -p src/Catalogs/Implementations
+mkdir -p src/Catalogs/Implementations/Repositories
+touch src/Catalogs/Interfaces/Repositories/ICategoryRepository.cs
+touch src/Catalogs/Interfaces/Repositories/IProductRepository.cs
+touch src/Catalogs/Implementations/Repositories/CategoryRepository.cs
+touch src/Catalogs/Implementations/Repositories/ProductRepository.cs
+
+dotnet add src/Web package System.IdentityModel.Tokens.Jwt
+touch src/Web/CustomAuthorizationMessageHandler.cs
+
+mkdir -p src/Shared/DTO/Orders
+
+dotnet add src/Orders package Microsoft.AspNetCore.Authentication.JwtBearer
+
+mkdir -p src/Orders/Controllers
+touch src/Orders/Controllers/OrderController.cs
+touch src/Shared/DTO/Orders/OrderDTO.cs
+touch src/Shared/DTO/Orders/OrderItemDTO.cs
+touch src/Shared/DTO/Orders/CreateOrderRequest.cs
+
+mkdir -p src/Orders/Entities
+touch src/Orders/Entities/MailEntity.cs
+touch src/Orders/Entities/MailAttachmentEntity.cs
+
+mkdir -p src/Orders/Interfaces
+mkdir -p src/Orders/Interfaces/Repositories
+mkdir -p src/Orders/Implementations
+mkdir -p src/Orders/Implementations/Repositories
+touch src/Orders/Interfaces/Repositories/IMailRepository.cs
+touch src/Orders/Implementations/Repositories/MailRepository.cs
+touch src/Orders/Interfaces/Repositories/IMailAttachmentRepository.cs
+touch src/Orders/Implementations/Repositories/MailAttachmentRepository.cs
+
+dotnet add src/Orders package Dapper
+dotnet add src/Orders package MySql.Data
+```

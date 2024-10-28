@@ -11,6 +11,7 @@ public class CategoryController : ControllerBase
     [HttpGet("categories")]
     public async Task<ActionResult<List<CategoryDTO>>> GetCategories()
     {
+        Response.Headers.Add("X-Catalogs-Instance", Environment.GetEnvironmentVariable("INSTANCE_ID") ?? "unknown");
         return Ok(new List<CategoryDTO>
             {
                 new CategoryDTO { Id = 1, Name = "Скидки", Url = "discounts", Icon = "icon2" },
