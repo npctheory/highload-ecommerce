@@ -42,7 +42,7 @@ else
         .AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
         
     builder.Services.AddHttpClient("AuthenticationService", client => 
-        client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress + "api/authentication/"))
+        client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress + "api/auth/"))
         .AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
         
     builder.Services.AddHttpClient("OrderService", client => 

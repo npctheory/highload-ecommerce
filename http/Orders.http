@@ -1,8 +1,8 @@
-@hostDocker=localhost:80/api/catalogs
+@hostDocker=localhost:80/api/orders
 @hostVSC=localhost:8086
 
 ### Send Mail
-POST http://{{hostVSC}}/mail/send
+POST http://{{hostDocker}}/mail/send
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
 }
 
 ### Send Mail With Attachment
-POST http://{{hostVSC}}/mail/send-with-attachment
+POST http://{{hostDocker}}/mail/send-with-attachment
 Content-Type: application/json
 
 {

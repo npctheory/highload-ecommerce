@@ -42,9 +42,9 @@ public class ProductController : ControllerBase
         {
             new ProductDTO
             {
-                Id = 1290,
-                Title = "Ящик элуниума (10 шт.)",
-                Description = "Ящик элуниума (10 шт.)",
+                Id = 19265,
+                Title = "Шапка хитрюги Смоки",
+                Description = "Шапка хитрюги Смоки",
                 Price = 499.00m,
                 OriginalPrice = 864.50m,
                 Image = "/images/product.webp",

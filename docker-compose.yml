@@ -93,17 +93,17 @@ services:
     networks:
       - highload_net
 
-  haproxy:
-    image: haproxy:latest
-    container_name: haproxy
-    restart: unless-stopped
-    ports:
-      - "35432:5432"
-      - "35433:5433"
-    volumes:
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
-    networks:
-      - highload_net
+  # haproxy:
+    # image: haproxy:latest
+    # container_name: haproxy
+    # restart: unless-stopped
+    # ports:
+      # - "35432:5432"
+      # - "35433:5433"
+    # volumes:
+      # - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    # networks:
+      # - highload_net
 
 
 volumes:

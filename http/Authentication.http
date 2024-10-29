@@ -1,4 +1,4 @@
-@hostDocker=localhost:80/api/catalogs
+@hostDocker=localhost:80/api/auth
 @hostVSC=localhost:8084
 
 
@@ -6,7 +6,7 @@
 GET http://{{hostVSC}}/login/2000000
 
 ### SignIn
-POST http://{{hostVSC}}/signin/
+POST http://{{hostDocker}}/signin/
 Content-Type: application/json
 
 {

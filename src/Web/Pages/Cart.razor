@@ -2,6 +2,7 @@
 @using Shared.DTO.Orders
 @using Shared.DTO.Orders.SendMailWithAttachment
 @using Web.Components
+@using Shared.DTO.Authentication.ListCharactersByAccountId
 @inherits ComponentBase
 @inject ICartService CartService
 @inject NavigationManager Navigation
@@ -35,7 +36,16 @@ else
         <Authorized>
             <div class="mt-3">
                 <select class="form-select mb-3" @bind="selectedPaymentMethod">
-                    <option value="coupon">Оплата купонами (@couponsCount купонов)</option>
+                    <option value="coupon">Оплата купонами (3000000 купонов)</option>
+                </select>
+                <select class="form-select mb-3" @bind="selectedCharacterId">
+                    @if (characters != null)
+                    {
+                        @foreach (var character in characters)
+                        {
+                            <option value="@character.CharId">@character.Name</option>
+                        }
+                    }
                 </select>
                 <button class="btn btn-primary" @onclick="HandleCheckout">Оформить заказ</button>
             </div>
@@ -50,6 +60,8 @@ else
     List<CartItem> cartItems = new List<CartItem>();
     private string selectedPaymentMethod = "coupon";
     private int couponsCount = 0;
+    private List<CharacterDTO> characters;
+    private int selectedCharacterId;
     
     protected override async Task OnInitializedAsync()
     {
@@ -58,6 +70,25 @@ else
         if (authState.User.Identity.IsAuthenticated)
         {
             await LoadCouponsCount();
+            await LoadCharacters();
+        }
+    }
+
+    private async Task LoadCharacters()
+    {
+        var client = ClientFactory.CreateClient("AuthenticationService");
+        try
+        {
+            var response = await client.GetFromJsonAsync<ListCharactersByAccountIdResponse>("characters/2000001");
+            characters = response.Characters;
+            if (characters.Any())
+            {
+                selectedCharacterId = characters.First().CharId;
+            }
+        }
+        catch
+        {
+            characters = new List<CharacterDTO>();
         }
     }
 
