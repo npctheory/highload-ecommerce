@@ -14,17 +14,7 @@ public class MailAttachmentRepositoryMySql : IMailAttachmentRepository
         _connectionString = connectionString;
     }
 
-    public async Task<List<MailAttachmentEntity>> GetByMailIdAsync(long mailId)
-    {
-        using var connection = new MySqlConnection(_connectionString);
-        var attachments = await connection.QueryAsync<MailAttachmentEntity>(
-            "SELECT * FROM mail_attachments WHERE id = @MailId",
-            new { MailId = mailId });
-        
-        return attachments.ToList();
-    }
-
-    public async Task CreateAsync(long mailId, MailAttachmentEntity attachment)
+    public async Task CreateAsync(MailAttachmentEntity attachment)
     {
         using var connection = new MySqlConnection(_connectionString);
         await connection.ExecuteAsync(@"
@@ -46,14 +36,6 @@ public class MailAttachmentRepositoryMySql : IMailAttachmentRepository
                 @OptionId3, @OptionVal3, @OptionParm3,
                 @OptionId4, @OptionVal4, @OptionParm4,
                 @UniqueId, @Bound, @EnchantGrade)",
-            new { Id = mailId, attachment });
-    }
-
-    public async Task DeleteByMailIdAsync(long mailId)
-    {
-        using var connection = new MySqlConnection(_connectionString);
-        await connection.ExecuteAsync(
-            "DELETE FROM mail_attachments WHERE id = @MailId",
-            new { MailId = mailId });
+            attachment);
     }
 }

@@ -13,3 +13,7 @@ Content-Type: application/json
   "id": "2000001",
   "password": "password"
 }
+
+### Characters
+GET http://{{hostVSC}}/characters/2000001
+Content-Type: application/json

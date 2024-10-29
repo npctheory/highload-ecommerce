@@ -1,0 +1,27 @@
+@hostDocker=localhost:80/api/catalogs
+@hostVSC=localhost:8086
+
+### Send Mail
+POST http://{{hostVSC}}/mail/send
+Content-Type: application/json
+
+{
+    "destName": "Character1",
+    "destId": 150001,
+    "zeny": 0
+}
+
+### Send Mail With Attachment
+POST http://{{hostVSC}}/mail/send-with-attachment
+Content-Type: application/json
+
+{
+    "destName": "Character1",
+    "destId": 150001,
+    "zeny": 0,
+    "attachmentNameId": 12911,
+    "attachmentAmount": 1
+}
+
+# 19265 Smokey's Transformation Leaf
+#   Набор ларцов близнецов

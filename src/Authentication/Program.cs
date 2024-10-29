@@ -54,7 +54,8 @@ builder.Services.AddAuthorization(options =>
 var connectionString = builder.Configuration["DatabaseSettings:ConnectionString"];
 builder.Services.AddScoped<ILoginEntityRepository>(provider => 
     new LoginEntityRepositoryMySql(connectionString));
-// builder.Services.AddScoped<ICharEntityRepository, CharEntityRepositoryMySql>();
+builder.Services.AddScoped<ICharacterRepository>(provider => 
+    new CharacterRepositoryMySql(connectionString));
 builder.Services.AddSingleton<IJwtTokenGenerator,JwtTokenGenerator>();
 
 var app = builder.Build();

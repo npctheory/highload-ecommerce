@@ -28,6 +28,20 @@ services:
       - highload_net
     ports:
       - "8084:80"
+
+  orders:
+    build:
+      context: ./src
+      dockerfile: ./Orders/Dockerfile
+    container_name: orders
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: "http://*:80"
+    networks:
+      - highload_net
+    ports:
+      - "8086:80"
       
   web:
     build:

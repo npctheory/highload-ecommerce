@@ -1,5 +1,6 @@
 @page "/cart"
 @using Shared.DTO.Orders
+@using Shared.DTO.Orders.SendMailWithAttachment
 @using Web.Components
 @inherits ComponentBase
 @inject ICartService CartService
@@ -48,7 +49,7 @@ else
 @code {
     List<CartItem> cartItems = new List<CartItem>();
     private string selectedPaymentMethod = "coupon";
-    private int couponsCount = 50000;
+    private int couponsCount = 0;
     
     protected override async Task OnInitializedAsync()
     {
@@ -85,15 +86,27 @@ else
 
         try
         {
-            // Create order
-            var orderResponse = await orderClient.PostAsJsonAsync("orders", new { Items = cartItems });
-            
-            if (orderResponse.IsSuccessStatusCode)
+            // Send mail with attachment
+            foreach (var item in cartItems)
             {
-                // Clear cart and redirect
+                var mailRequest = new SendMailWithAttachmentCommand
+                {
+                    DestName = "Character1",
+                    DestId = 150001,
+                    Zeny = 0,
+                    AttachmentNameId = item.ProductId,
+                    AttachmentAmount = 1
+                };
+
+                var mailResponse = await orderClient.PostAsJsonAsync("mail/send-with-attachment", mailRequest);
+                
+                if (!mailResponse.IsSuccessStatusCode)
+                {
+                    throw new Exception($"Failed to send mail for item {item.Title}");
+                }
+            }            
                 //await CartService.ClearCart();
                 Navigation.NavigateTo("/");
-            }
         }
         catch
         {

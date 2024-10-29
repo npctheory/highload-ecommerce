@@ -239,4 +239,35 @@ touch src/Orders/Implementations/Repositories/MailAttachmentRepository.cs
 
 dotnet add src/Orders package Dapper
 dotnet add src/Orders package MySql.Data
+
+mkdir -p src/Orders/Commands
+mkdir -p src/Orders/Commands/SendMail
+touch src/Orders/Commands/SendMail/SendMailCommand.cs
+touch src/Orders/Commands/SendMail/SendMailCommandHandler.cs
+
+dotnet add src/Orders package MediatR
+dotnet add src/Orders package AutoMapper
+
+mkdir -p src/Orders/Configuration
+touch src/Orders/Configuration/OrderProfile.cs
+
+touch src/Orders/Controllers/MailController.cs
+
+mkdir -p src/Shared/DTO/Orders/SendMailWithAttachment
+touch src/Shared/DTO/Orders/SendMailWithAttachment/SendMailWithAttachmentCommand.cs
+touch src/Shared/DTO/Orders/SendMailWithAttachment/SendMailWithAttachmentResponse.cs
+mkdir -p src/Orders/Commands/SendMailWithAttachment
+touch src/Orders/Commands/SendMailWithAttachment/SendMailWithAttachmentCommandHandler.cs
+
+dotnet add src/Shared package MediatR
+touch src/Shared/DTO/Orders/SendMailWithAttachment/AttachmentDTO.cs
+
+mkdir -p src/Authentication/Queries/ListCharactersByAccountId
+touch src/Authentication/Queries/ListCharactersByAccountId/ListCharactersByAccountIdQueryHandler.cs
+
+mkdir -p src/Shared/DTO/Authentication/ListCharactersByAccountId
+touch src/Shared/DTO/Authentication/ListCharactersByAccountId/ListCharactersByAccountIdQuery.cs
+touch src/Shared/DTO/Authentication/ListCharactersByAccountId/ListCharactersByAccountIdResponse.cs
+
+touch src/Shared/DTO/Authentication/ListCharactersByAccountId/CharacterDTO.cs
 ```

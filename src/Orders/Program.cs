@@ -2,12 +2,18 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using Orders.Interfaces.Repositories;
+using Orders.Implementations.Repositories;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+
 
 builder.Services.AddCors(options =>
 {
@@ -39,6 +45,13 @@ builder.Services.AddAuthorization(options =>
         .RequireAuthenticatedUser()
         .Build();
 });
+
+var connectionString = builder.Configuration["DatabaseSettings:ConnectionString"];
+builder.Services.AddScoped<IMailRepository>(provider => 
+    new MailRepositoryMySql(connectionString));
+
+builder.Services.AddScoped<IMailAttachmentRepository>(provider => 
+    new MailAttachmentRepositoryMySql(connectionString));    
 
 var app = builder.Build();
 app.UseCors("AllowWebApp");
